@@ -1,25 +1,49 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+// eslint-disable-next-line 
+import LoginForm from "./Components/LoginForm.js";
+// eslint-disable-next-line 
+import UserStore from "./store/UserStore.js";
+// eslint-disable-next-line 
+import InputField from "./Components/InputField.js";
+// eslint-disable-next-line 
+import SubmitButton from "./Components/SubmitButton.js";
+import './App.css'
+// import Navbar from "./Components/Navbar.js"
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+class App extends React.Component {
+  async componentDidMount() {
+   try {
+     // eslint-disable-next-line 
+      let response = await fetch('/isLoggedIn', {
+        method: 'post',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        }
+      });
+
+      let responseJson = await response.json();
+
+      if (result && result.isLoggedIn) {
+        UserStore.loading = false;
+        UserStore.isLoggedIn = true;
+          isLoggedIn: false
+        });
+
+        }
+        catch (e) {{  
+   }
+  
+  }
+  render() {
+    return (
+      <div className="app">
+       Hello World
+        {/* <Navbar /> */}
+        <UserStore />
+      </div>
+    );
+  }
+} 
 
 export default App;
