@@ -1,4 +1,5 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 import { initializeApp } from 'firebase/app';
 import { getAuth, onAuthStateChanged } from 'firebase/auth'
 import LoginForm from './LoginForm';
@@ -23,15 +24,17 @@ const handler = (form) => {
 }
 
 const Main = () => {
+  const navigate = useNavigate()
+
   onAuthStateChanged(auth, (user) => {
-    if (user) {
-      document.getElementById("loop").innerText = "logged in"
-    } else {
-      document.getElementById("loop").innerText = "No logged in"
+    if (!user) {
+      navigate("/LoginForm")
     }
   })
 
-  return <LoginForm />
+  return <div>
+
+  </div>
 }
 
 export default Main

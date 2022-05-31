@@ -1,59 +1,65 @@
 import React from "react";
+import { useNavigate } from 'react-router-dom'
 
-class LoginForm extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      username: "",
-      password: ""
-    };
-  }
+import { initializeApp } from 'firebase/app';
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'
 
-  handleChange = e => {
-    this.setState({
-      [e.target.name]: e.target.value
-    });
-  };
+// Your web app's Firebase configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyApsiaVOhugNwoTQFEeT87BTGQXajMo4so",
+  authDomain: "salvage-insurance.firebaseapp.com",
+  projectId: "salvage-insurance",
+  storageBucket: "salvage-insurance.appspot.com",
+  messagingSenderId: "788263947850",
+  appId: "1:788263947850:web:0c544d11b7dd372180e0b3"
+};
 
-  handleSubmit = e => {
-    e.preventDefault();
-    this.props.onSubmit(this.state);
-  };
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
 
-  render() {
-    return (
-      <div className="LoginForm">
-        <h1>Login</h1>
-        <form onSubmit={this.handleSubmit}>
-          <div className="form-group">
-            <label htmlFor="username">Username</label>
-            <input
-              type="text"
-              className="form-control"
-              id="username"
-              name="username"
-              value={this.state.username}
-              onChange={this.handleChange}
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="password">Password</label>
-            <input
-              type="password"
-              className="form-control"
-              id="password"
-              name="password"
-              value={this.state.password}
-              onChange={this.handleChange}
-            />
-          </div>
-          <button type="submit" className="btn btn-primary">
-            Login
-          </button>
-        </form>
+const auth = getAuth(app)
+
+
+
+const LoginForm = () => {
+  const navigate = useNavigate();
+
+  const handleSubmit = (e) => {
+  e.preventDefault()
+
+  signInWithEmailAndPassword(
+    auth,
+    e.target[0].value,
+    e.target[1].value
+  ).then((user) => {
+    navigate("/Dashboard")
+  }).catch((e) => {
+    alert(e.message)
+  })
+}
+  return <div className="LoginForm">
+    <h1>Login</h1>
+
+    <form onSubmit={handleSubmit}>
+      <div className="form-group">
+        <label htmlFor="username">Username</label>
+        <input
+          type="text"
+          className="form-control"
+          id="username"
+          name="username" />
       </div>
-    );
-  }
+      <div className="form-group">
+        <label htmlFor="password">Password</label>
+        <input
+          type="password"
+          className="form-control"
+          id="password"
+          name="password" />
+      </div>
+      <button type="submit" className="btn btn-primary"></button>
+    </form>
+  </div>
 }
 
 export default LoginForm;
