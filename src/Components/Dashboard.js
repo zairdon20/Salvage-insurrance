@@ -1,6 +1,7 @@
 import React from 'react'
 import { initializeApp } from 'firebase/app';
 import { getAuth, onAuthStateChanged } from 'firebase/auth'
+import LoginForm from './LoginForm';
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -17,6 +18,10 @@ const app = initializeApp(firebaseConfig);
 
 const auth = getAuth(app)
 
+const handler = (form) => {
+
+}
+
 const Main = () => {
   onAuthStateChanged(auth, (user) => {
     if (user) {
@@ -26,11 +31,7 @@ const Main = () => {
     }
   })
 
-  return (
-    <div id='loop'>
-      Hello world!
-    </div>
-  )
+  return <LoginForm />
 }
 
 export default Main
