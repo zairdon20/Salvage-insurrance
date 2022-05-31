@@ -1,8 +1,24 @@
+import Signup from './Components/Signup';
 import React from "react";
-import Main from "./Components/Main.js";
+import Dashboard from './Components/Dashboard';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import SplashScreen from './Components/SplashScreen';
 
+function App() {
+    // const Dashboard = () => (<Dashboard />)
+    return (
+        <Router>
+          <div className="App">
+            <Routes>
+            <Route exact path="/" element={<SplashScreen />} />
+            <Route exact path="/Signup" element={<Signup />} />
+            <Route exact path="/Dashboard" element={<Dashboard />} />
+            </Routes>
+          </div>
+        </Router>
+      );
+    }
 
-const App = () => (<Main />);
 
 export default App;
 
