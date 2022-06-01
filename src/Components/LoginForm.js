@@ -1,6 +1,5 @@
 import React from "react";
 import { useNavigate } from 'react-router-dom'
-
 import { initializeApp } from 'firebase/app';
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'
 
