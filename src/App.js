@@ -4,7 +4,7 @@ import Dashboard from './Components/Dashboard';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import SplashScreen from './Components/SplashScreen';
 import LoginForm from './Components/LoginForm';
-
+// import ReactDom from 'react-dom';
 const App = () => {
   return <Router>
     <div className="App">
