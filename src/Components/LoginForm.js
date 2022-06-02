@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 import { initializeApp } from 'firebase/app';
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'
 
@@ -24,18 +24,19 @@ const LoginForm = () => {
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
-  e.preventDefault()
+    e.preventDefault()
 
-  signInWithEmailAndPassword(
-    auth,
-    e.target[0].value,
-    e.target[1].value
-  ).then((user) => {
-    navigate("/Dashboard")
-  }).catch((e) => {
-    alert(e.message)
-  })
-}
+    signInWithEmailAndPassword(
+      auth,
+      e.target[0].value,
+      e.target[1].value
+    ).then((user) => {
+      navigate("/Dashboard")
+    }).catch((e) => {
+      alert(e.message)
+    })
+  }
+  
   return <div className="LoginForm">
     <h1>Login</h1>
 
@@ -57,6 +58,10 @@ const LoginForm = () => {
           name="password" />
       </div>
       <button type="submit" className="btn btn-primary"></button>
+
+      <div>
+        <p>Don't have an account? <Link to={"/Signup"}>Create an account</Link></p>
+      </div>
     </form>
   </div>
 }

@@ -1,40 +1,61 @@
 import React from 'react'
-import { useNavigate } from 'react-router-dom'
-import { initializeApp } from 'firebase/app';
-import { getAuth, onAuthStateChanged } from 'firebase/auth'
-import LoginForm from './LoginForm';
+import Card from './Card';
 
-// Your web app's Firebase configuration
-const firebaseConfig = {
-  apiKey: "AIzaSyApsiaVOhugNwoTQFEeT87BTGQXajMo4so",
-  authDomain: "salvage-insurance.firebaseapp.com",
-  projectId: "salvage-insurance",
-  storageBucket: "salvage-insurance.appspot.com",
-  messagingSenderId: "788263947850",
-  appId: "1:788263947850:web:0c544d11b7dd372180e0b3"
-};
+// eslint-disable-next-line import/no-anonymous-default-export
+const Dashboard = () => {
+  const arr = [
+    {},
+    {}
+  ]
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-
-const auth = getAuth(app)
-
-const handler = (form) => {
-
-}
-
-const Main = () => {
-  const navigate = useNavigate()
-
-  onAuthStateChanged(auth, (user) => {
-    if (!user) {
-      navigate("/LoginForm")
-    }
-  })
+  const foo = arr.map((_, i) => <Card key={i} />)
 
   return <div>
-
+    {foo}
   </div>
 }
 
-export default Main
+
+export default Dashboard
+// const Main = async () => {
+//   const navigate = useNavigate()
+
+//   onAuthStateChanged(auth, (user) => {
+//     if (!user) {
+//       navigate("/LoginForm")
+//     }
+//   })
+
+//   const { euiTheme } = useEuiTheme();
+
+//   const data = await fetchData()
+
+//   console.log(data);
+
+//   console.log("dfghjkl");
+
+//   return (
+//     <EuiText>
+//       <p>
+//         <EuiIcon
+//           type="stopFilled"
+//           size="xxl"
+//           css={{ color: euiTheme.colors.primary }}
+//         />{' '}
+//         This primary color will adjust based on the light or dark theme value
+//       </p>
+
+//       <p
+//         css={css`
+//           background: ${euiTheme.colors.dangerText};
+//           padding: calc(${euiTheme.size.base} * 2);
+//         `}
+//         >The padding of this box is created using <EuiCode>calc()</EuiCode>{' '}
+//         because EUI&apos;s theme sizes are string pixel values that are
+//         calculated off the theme&apos;s <EuiCode>base</EuiCode>
+//       </p>
+//     </EuiText>
+//   );
+// }
+
+// export default Main
