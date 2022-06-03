@@ -1,91 +1,119 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Card from './Card';
 import fetchData from './Utils'
 
+import '@elastic/eui/dist/eui_theme_light.css';
+import { EuiProvider } from '@elastic/eui';
+
+import {
+  EuiFlexGroup,
+  EuiFlexItem,
+  EuiSpacer,
+  EuiButton,
+  EuiModal,
+  EuiModalBody,
+  EuiModalFooter,
+  EuiModalHeader,
+  EuiModalHeaderTitle,
+  EuiCodeBlock,
+  EuiCard,
+  EuiIcon
+} from '@elastic/eui';
+
 // eslint-disable-next-line import/no-anonymous-default-export
-const Dashboard = async () => {
-  const data = await fetchData()
-  const mData = data.data.data
+const Dashboard = () => {
+  const [isModalVisible, setIsModalVisible] = useState(false);
 
-  console.log(mData);
+  const closeModal = () => setIsModalVisible(false);
+  const showModal = () => setIsModalVisible(true);
 
-  // const foo = mData.map(_ => {
-  //   return <Card name={_.name} id={_()} key={i} />
-  // })
+  let modal;
 
-  return <div className="Dashboard">
-    <nav>
-      <h3>Finapp</h3>
+  if (isModalVisible) {
+    modal = (
+      <EuiModal onClose={closeModal}>
+        <EuiModalHeader>
+          <EuiModalHeaderTitle>
+            <h1>Modal title</h1>
+          </EuiModalHeaderTitle>
+        </EuiModalHeader>
 
-      <div>
-        <h3>Dashboard</h3>
-        <p>Invoice</p>
-        <p>Wallets</p>
-        <p>Reports</p>
-        <p>Transactions</p>
-        <hr></hr>
-        <p>Settings</p>
-        <p>Help</p>
-        <p>Log Out</p>
-      </div>
-      <section>
-        <div>
-          <img src="" alt="#" />
-          <div>
-            <h4><b>Total Balance</b></h4>
-            <p>+ $28 55 </p>
-            <h6>Last Transactions</h6>
-            <p>Top Up</p>
-            <p>WITHDRAW</p>
-            <h1>$200.58</h1>
-            <h6>Wallets Amount</h6>
-          </div>
-          <div>
-            <p><b>Report</b></p>
-            <imag src="" alt="#" />
-          </div>
-          <div>
-            <h6>Total Income</h6>
-            <p>$ 18532.52</p>
-          </div>
-          <div>
-            <h6>Total Savings</h6>
-            <p>$ 18532.52</p>
-          </div>
-          <div>
-            <h6>Total Expense</h6>
-            <p>$ 18532.52</p>
-          </div>
-          <div>
-            <h6>Total Upcoming</h6>
-            <p>$ 18532.52</p>
-          </div>
-          <div>
-            <p>Last Transactions</p>
-            <a href="#">Icon</a>
-            <h6>Transfer to Johdi <br />personal payment</h6>
-            <p>-$ 35.00</p>
-            <h6>Nike <br /> Shopping</h6>
-            <p>-$128.00</p>
-            <h6>Mobile Phone Top Up <br />Communication</h6>
-            <p>-10.00</p>
-            <h6>Balance Top-up <br />personal Payment</h6>
-            <p>+$300.58</p>
-            <h6>Withdrawal <br />Personal Payment</h6>
-            <p>-$35.00</p>
-          </div>
-          <div>
-            <p>Spending This Month</p>
-            <a href="#">Icon</a>
-            <h1>$138.00</h1>
-            <p>Spend This Month</p>
-          </div>
-        </div>
-      </section>
-    </nav>
+        <EuiModalBody>
+          This modal has the following setup:
+          <EuiSpacer />
+          <EuiCodeBlock language="html" isCopyable>
+            {`<EuiModal onClose={closeModal}>
+              <EuiModalHeader>
+                <EuiModalHeaderTitle><h1><!-- Modal title --></h1></EuiModalHeaderTitle>
+              </EuiModalHeader>
 
-    {/* {foo} */}
-  </div>
+              <EuiModalBody>
+                <!-- Modal body -->
+              </EuiModalBody>
+
+              <EuiModalFooter>
+                <EuiButton onClick={closeModal} fill>
+                  Close
+                </EuiButton>
+              </EuiModalFooter>
+            </EuiModal>`}
+          </EuiCodeBlock>
+        </EuiModalBody>
+
+        <EuiModalFooter>
+          <EuiButton onClick={closeModal} fill>
+            Close
+          </EuiButton>
+        </EuiModalFooter>
+      </EuiModal>
+    );
+  }
+
+  const cardFooterContent = (
+    <EuiFlexGroup justifyContent="flexEnd">
+      <EuiFlexItem grow={false}>
+        <EuiButton onClick={showModal}>Go for it</EuiButton>
+      </EuiFlexItem>
+    </EuiFlexGroup>
+  );
+
+  const buttons = [
+    'primary',
+    'success',
+    'warning',
+    'danger',
+    'text',
+    'accent',
+    'disabled',
+  ];
+
+  return <EuiProvider colorMode="light">
+    {modal}
+    <EuiFlexGroup>
+      <EuiFlexItem grow={false}>
+        <h3>Insurancee</h3>
+        {
+          buttons.map((button) => <EuiButton key={button} iconType="heart">button</EuiButton>)
+        }
+      </EuiFlexItem>
+
+      <EuiFlexItem>
+        <EuiFlexGroup responsive={true} wrap gutterSize='s'>
+          {
+            buttons.map((button) => <EuiFlexItem key={button} style={{ minWidth: 300 }}>
+              <EuiCard
+                icon={<EuiIcon type="logoElastic" size="xl" />}
+                title={button}
+                isDisabled={false}
+                description="Some really cool description right here. Make it count."
+                footer={cardFooterContent}
+              />
+            </EuiFlexItem>)
+          }
+        </EuiFlexGroup>
+      </EuiFlexItem>
+    </EuiFlexGroup>
+  </EuiProvider>
 }
 
 
