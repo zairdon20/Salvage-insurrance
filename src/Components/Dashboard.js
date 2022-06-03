@@ -1,18 +1,22 @@
-import React from 'react'
+import React from 'react';
 import Card from './Card';
+import fetchData from './Utils'
 
 // eslint-disable-next-line import/no-anonymous-default-export
-const Dashboard = () => {
-  const arr = [
-    {},
-    {}
-  ]
+const Dashboard = async () => {
+  const data = await fetchData()
+  const mData = data.data.data
 
-  const foo = arr.map((_, i) => <Card key={i} />)
+  console.log(mData);
+
+  // const foo = mData.map(_ => {
+  //   return <Card name={_.name} id={_()} key={i} />
+  // })
 
   return <div className="Dashboard">
     <nav>
       <h3>Finapp</h3>
+
       <div>
         <h3>Dashboard</h3>
         <p>Invoice</p>
@@ -69,17 +73,18 @@ const Dashboard = () => {
             <p>+$300.58</p>
             <h6>Withdrawal <br />Personal Payment</h6>
             <p>-$35.00</p>
-            </div>
-            <div>
-              <p>Spending This Month</p>
-              <a href="#">Icon</a>
-              <h1>$138.00</h1>
-              <p>Spend This Month</p>
-            </div>
+          </div>
+          <div>
+            <p>Spending This Month</p>
+            <a href="#">Icon</a>
+            <h1>$138.00</h1>
+            <p>Spend This Month</p>
+          </div>
         </div>
       </section>
     </nav>
-    {foo}
+
+    {/* {foo} */}
   </div>
 }
 
