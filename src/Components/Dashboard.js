@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Card from './Card';
 import fetchData from './Utils'
-
+import companies from './Companies'
 import '@elastic/eui/dist/eui_theme_light.css';
 import { EuiProvider } from '@elastic/eui';
 
